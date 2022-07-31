@@ -16,17 +16,14 @@ export const loadFile = async (req, res, next) => {
     });
 };
 
-const randomInt = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
-
 export const getRandomEmoji = async (req, res) => {
     const { emoji } = req;
-    const { q, limit } = req.query;
+    const { q, l } = req.query;
 
     let shuffled = emoji.sort(() => 0.5 - Math.random());
 
     if (shuffled) {
-        if (!limit) {
+        if (!l) {
             if (q && q.length > 0) {
                 shuffled = shuffled.filter((item) => {
                     const a = JSON.stringify(item).toLowerCase();
@@ -39,7 +36,7 @@ export const getRandomEmoji = async (req, res) => {
                 return res.status(200).json(selected);
             }
         } else {
-            if (limit > 100) {
+            if (l > 100) {
                 if (q && q.length > 0) {
                     shuffled = shuffled.filter((item) => {
                         const a = JSON.stringify(item).toLowerCase();
@@ -57,10 +54,10 @@ export const getRandomEmoji = async (req, res) => {
                         const a = JSON.stringify(item).toLowerCase();
                         return a.includes(q);
                     });
-                    let selected = shuffled.slice(0, limit);
+                    let selected = shuffled.slice(0, l);
                     return res.status(200).json(selected);
                 } else {
-                    let selected = shuffled.slice(0, limit);
+                    let selected = shuffled.slice(0, l);
                     return res.status(200).json(selected);
                 }
             }
@@ -74,12 +71,12 @@ export const getRandomEmoji = async (req, res) => {
 
 export const getAllEmoji = async (req, res) => {
     const { emoji } = req;
-    const { q, limit } = req.query;
+    const { q, l } = req.query;
 
     let shuffled = emoji;
 
     if (shuffled) {
-        if (!limit) {
+        if (!l) {
             if (q && q.length > 0) {
                 shuffled = shuffled.filter((item) => {
                     const a = JSON.stringify(item).toLowerCase();
@@ -92,7 +89,7 @@ export const getAllEmoji = async (req, res) => {
                 return res.status(200).json(selected);
             }
         } else {
-            if (limit > 100) {
+            if (l > 100) {
                 if (q && q.length > 0) {
                     shuffled = shuffled.filter((item) => {
                         const a = JSON.stringify(item).toLowerCase();
@@ -110,10 +107,10 @@ export const getAllEmoji = async (req, res) => {
                         const a = JSON.stringify(item).toLowerCase();
                         return a.includes(q);
                     });
-                    let selected = shuffled.slice(0, limit);
+                    let selected = shuffled.slice(0, l);
                     return res.status(200).json(selected);
                 } else {
-                    let selected = shuffled.slice(0, limit);
+                    let selected = shuffled.slice(0, l);
                     return res.status(200).json(selected);
                 }
             }
@@ -127,9 +124,9 @@ export const getAllEmoji = async (req, res) => {
 
 export const getRandomEmojiPNG = async (req, res) => {
 
-    const { text, all } = req.query || {};
+    const { json, all } = req.query || {};
 
-    if (text) {
+    if (json) {
         return getRandomEmoji(req, res);
     }
 
