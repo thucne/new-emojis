@@ -1,5 +1,5 @@
 import fs from "fs";
-
+import fetch from "node-fetch";
 import path from "path";
 const __dirname = path.resolve();
 
@@ -126,6 +126,17 @@ export const getAllEmoji = async (req, res) => {
 };
 
 export const getRandomEmojiPNG = async (req, res) => {
+
+    const { text, all } = req.query || {};
+
+    if (text) {
+        return getRandomEmoji(req, res);
+    }
+
+    if (all) {
+        return getAllEmoji(req, res);
+    }
+
     fs.readFile(
         __dirname + "/public/data.json",
         "utf8",
