@@ -3,10 +3,10 @@ import express from 'express';
 //validators
 const router = express.Router();
 
-import { loadFile, getRandomEmojiPNG, getRandomEmoji, getAllEmoji } from "../controllers/emoji.js";
+import { getRandomEmojiPNG, getRandomEmoji, getAllEmoji } from "../controllers/emoji.js";
 
-router.get("/", loadFile, getRandomEmojiPNG);
-router.get("/json", loadFile, getRandomEmoji);
-router.get("/all", loadFile, getAllEmoji);
+router.get("/", getRandomEmojiPNG);
+router.get("/json", getRandomEmoji);
+router.get("/all", getAllEmoji);
 
 export default router;

@@ -6,6 +6,7 @@ import path from "path";
 import favicon from "serve-favicon";
 
 import routes from "./api/index.js";
+import { loadFile} from "./controllers/emoji.js";
 
 dotenv.config();
 const __dirname = path.resolve();
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use(loadFile);
 
 app.use("/", routes);
 
